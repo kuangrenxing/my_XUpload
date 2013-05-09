@@ -9,20 +9,23 @@
             <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } else { %}
             <td class="preview">{% if (file.thumbnail_url) { %}
-                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img style="width:100px; height:62px;" src="{%=file.thumbnail_url%}"></a>
+				<input type="hidden" name="files_val[]" value="{%=file.thumbnail_url%}">
             {% } %}</td>
             <td class="name">
                 <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
             </td>
             <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-            <td colspan="2"></td>
+            <td colspan="2"><input type="text" class="input-medium" name="files_text[]" value="" placeholder="title"></td>
         {% } %}
         <td class="delete">
             <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                 <i class="icon-trash icon-white"></i>
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>
-            <input type="checkbox" name="delete" value="1">
+            <?php if ($this->multiple) : ?><input type="checkbox" name="delete" value="1">
+            <?php else: ?><input type="hidden" name="delete" value="1">
+            <?php endif; ?>
         </td>
     </tr>
 {% } %}

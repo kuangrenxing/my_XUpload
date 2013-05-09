@@ -1,12 +1,21 @@
 <div class="page-header">
         <h1>jQuery File Upload Demo</h1>
     </div>
-    <blockquote>
-        <p>File Upload widget with multiple file selection, drag&amp;drop support, progress bars and preview images for jQuery.<br>
-        Supports cross-domain, chunked and resumable file uploads and client-side image resizing.<br>
-        Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.</p>
-    </blockquote>
+   
     <br>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+          'id' => 'XUploadForm-form',
+          'enableAjaxValidation' => false,
+            //This is very important when uploading files
+          'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        ));
+      ?>   
+    <div class="row">
+            <?php echo $form->labelEx($model,'field1'); ?>
+            <?php echo $form->textField($model,'field1'); ?>
+            <?php echo $form->error($model,'field1'); ?>
+    </div>
     <?php
 		$this->widget('xupload.XUpload', array(
 			'url' => Yii::app()->createUrl("site/upload", array("parent_id" => 1)),
@@ -15,7 +24,7 @@
 			'multiple' => true,
 		));
 		?>
-		
+	 <?php $this->endWidget(); ?>	
 		
     <br>
     <div class="well">
